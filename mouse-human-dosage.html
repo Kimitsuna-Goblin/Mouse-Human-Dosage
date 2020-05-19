@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<HTML lang="ja">
+<!--
+	Copyright (C) 2020 浦 公統
+	Released under the MIT license.
+	see https://opensource.org/licenses/MIT/
+-->
+<HEAD>
+	<META charset="UTF-8">
+	<META name="viewport" content="width=device-width">
+	<TITLE>マウス用量→ヒト用量換算</TITLE>
+	<SCRIPT>
+		function calcDosage()
+		{
+			var mouseWeight = Number( document.getElementById( 'mouseWeight' ).value );
+			var humanWeight = Number( document.getElementById( 'humanWeight' ).value );
+			var mouseDosage = Number( document.getElementById( 'mouseDosage' ).value );
+			var humanDosageByWeight = document.getElementById( 'humanDosageByWeight' );
+			var humanDosageByPerson = document.getElementById( 'humanDosageByPerson' );
+			
+			if ( isNaN( mouseWeight ) || isNaN( humanWeight ) || isNaN( mouseDosage ) )
+			{
+				humanDosageByWeight.value = Number.NaN;
+				humanDosageByPerson.value = Number.NaN;
+			}
+			else
+			{
+				humanDosageByWeight.value = formatDecimal( mouseDosage * Math.pow( mouseWeight / 1000.0 / humanWeight, 1 / 3 ), 3 );
+				humanDosageByPerson.value = formatDecimal( mouseDosage * Math.pow( mouseWeight / 1000.0 * humanWeight * humanWeight, 1 / 3 ), 3 );
+			}
+		}
+
+		function formatDecimal( value, underPoint )
+		{
+			var formated = '';
+			var valueString = String( value );
+			var valuePoint = ( valueString.indexOf( '.' ) > 0 ) ? valueString.indexOf( '.' ) : valueString.length;
+			var pointless = valueString.substring( 0, valuePoint ) + valueString.substring( valuePoint + 1 );
+
+			if ( valueString.indexOf( 'e' ) > 0 )
+			{
+				var valueEs = valueString.split( 'e' );
+				var valueE = Number( valueEs[1] );
+
+				valuePoint = ( valueEs[0].indexOf( '.' ) > 0 ) ? valueEs[0].indexOf( '.' ) : valueEs[0].length;
+				pointless = valueEs[0].substring( 0, valuePoint ) + valueEs[0].substring( valuePoint + 1 );
+
+				valuePoint += valueE;
+
+				if ( valuePoint <= 0 || ( value < 0 && valuePoint <= 1 ) )
+				{
+					var zeros = '';
+
+					if ( value < 0 )
+					{
+						zeros = '-';
+						pointless = pointless.substring( 1 );
+						valuePoint--;
+					}
+
+					for ( var i = valuePoint; i <= 0; i++ )
+					{
+						zeros += '0';
+					}
+					pointless = zeros + pointless;
+					valuePoint = ( value < 0 ) ? 2 : 1;
+				}
+			}
+
+			for ( var i = 0; i < valuePoint + underPoint; i++ )
+			{
+				pointless += '0';
+			}
+
+			var zeros = '';
+			var valueTopNonZero = '0';
+
+			for ( var i = 0; i < pointless.length; i++ )
+			{
+				if ( pointless.charAt( i ) == '-' || pointless.charAt( i ) == '0' )
+				{
+					zeros += pointless.charAt( i );
+				}
+				else
+				{
+					valueTopNonZero = pointless.charAt( i );
+					break;
+				}
+			}
+
+			var rounded = Math.round( Math.abs(
+								Number( pointless.substring( 0, valuePoint + underPoint )
+										+ '.' + pointless.substring( valuePoint + underPoint ) ) ) ).toFixed();
+
+			if ( valueTopNonZero > '1' && rounded.charAt( 0 ) == '1' )
+			{
+				if ( zeros.length > 0 && zeros.charAt( zeros.length - 1 ) == '0' )
+				{
+					zeros = zeros.substring( 0, zeros.length - 1 );
+				}
+				else
+				{
+					valuePoint++;
+				}
+			}
+
+			rounded = zeros + rounded;
+
+			if ( underPoint <= 0 )
+			{
+				formated = rounded.substring( 0, valuePoint );
+			}
+			else
+			{
+				formated = rounded.substring( 0, valuePoint )
+								+ '.' + rounded.substring( valuePoint, valuePoint + underPoint );
+			}
+
+			return formated;
+		}
+	</SCRIPT>
+	<STYLE>
+		TABLE, TH, TD
+		{
+			border: solid 2px;
+		}
+	</STYLE>
+</HEAD>
+<BODY>
+	<TABLE>
+		<TR>
+			<TH>
+				マウス体重
+			</TH>
+			<TD>
+				<INPUT type="text" id="mouseWeight" size="4" value="19.0"> g
+			</TD>
+		</TR>
+		<TR>
+			<TH>
+				ヒト体重
+			</TH>
+			<TD>
+				<INPUT type="text" id="humanWeight" size="4" value="63.6"> kg
+			</TD>
+		</TR>
+		<TR>
+			<TH>
+				マウス用量
+			</TH>
+			<TD>
+				<INPUT type="text" id="mouseDosage" size="4" value=""> mg/kg
+			</TD>
+		</TR>
+		<TR>
+			<TD colspan="2" style="text-align: center; border: none;">
+				<INPUT type="button" onclick="calcDosage();" value="ヒト用量計算">
+			</TD>
+		</TR>
+		<TR>
+			<TH>
+				ヒト用量
+			</TH>
+			<TD>
+				<DIV><INPUT type="text" id="humanDosageByWeight" size="4" value="" readonly="readonly"> mg/kg</DIV>
+				<DIV><INPUT type="text" id="humanDosageByPerson" size="4" value="" readonly="readonly"> mg (標準)</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+</BODY>
+</HTML>
