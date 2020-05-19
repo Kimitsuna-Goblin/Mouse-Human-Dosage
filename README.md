@@ -17,7 +17,7 @@ For quickly access to the tool...
 
 ## 説明 - Description
 
-説明要りますか？不要ですよね。あ、計算は小数点以下3桁で四捨五入します。
+説明要りますか？不要ですよね。あ、計算は小数点以下3桁までで四捨五入します。
 <BR>
 Do you need any description? You don't! Oh, the calculation is rounded off to three decimal places.
 
