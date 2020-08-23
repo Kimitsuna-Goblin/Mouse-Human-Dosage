@@ -3,8 +3,7 @@
 マウスの体重あたり用量 (mg/kg) をヒトの体重あたり用量 (mg/kg) に換算するツールです。
 ヒト等価用量 (Human equivalent dose, HED) を使って換算しています。
 <BR>
-This tool converts a mouse dose per body weight (mg/kg) to a human dose per body weight (mg/kg).
-The human equivalent dose (HED) is used for conversion.
+This tool converts a mouse dose per body weight (mg/kg) to a human dose per body weight (mg/kg) viaThe humhnaequivalent dose (HED) is used for conversion.
 
 ## オンラインツール - Online tool
 
@@ -27,7 +26,7 @@ Do you need any description? You don't! Oh, the calculation is rounded off to th
 <BR>
 This tool is constituted by following files. No other libralies are need.
 
-[mouse-human-dosage.html](https://github.com/Kimitsuna-Goblin/Mouse-Human-Dosage/blob/mouse-human-dosage.html) - ツール本体です。
+[mouse-human-dosage.html](https://github.com/Kimitsuna-Goblin/Mouse-Human-Dosage/blob/master/mouse-human-dosage.html) - ツール本体です。
 <BR>
 The tool itself.
 
