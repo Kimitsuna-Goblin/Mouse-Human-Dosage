@@ -32,7 +32,7 @@
 
 		function formatDecimal( value, underPoint )
 		{
-			var formated = '';
+			var formatted = '';
 			var valueString = String( value );
 			var valuePoint = ( valueString.indexOf( '.' ) > 0 ) ? valueString.indexOf( '.' ) : valueString.length;
 			var pointless = valueString.substring( 0, valuePoint ) + valueString.substring( valuePoint + 1 );
@@ -108,15 +108,15 @@
 
 			if ( underPoint <= 0 )
 			{
-				formated = rounded.substring( 0, valuePoint );
+				formatted = rounded.substring( 0, valuePoint );
 			}
 			else
 			{
-				formated = rounded.substring( 0, valuePoint )
+				formatted = rounded.substring( 0, valuePoint )
 								+ '.' + rounded.substring( valuePoint, valuePoint + underPoint );
 			}
 
-			return formated;
+			return formatted;
 		}
 	</SCRIPT>
 	<STYLE>
