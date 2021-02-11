@@ -30,9 +30,9 @@ This tool is constituted by following files. No other libralies are need.
 <BR>
 The tool itself.
 
-## ライセンス - Licence
+## ライセンス - License
 
-[MIT](https://github.com/Kimitsuna-Goblin/extClark/blob/master/LICENSE)
+[MIT](https://github.com/Kimitsuna-Goblin/Mouse-Human-Dosage/blob/master/LICENSE)
 
 ## 著作者 - Author
 
